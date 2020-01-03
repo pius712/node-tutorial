@@ -1,7 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 
-const users = {};
+const users = {"1": "pius", "2": "pius712"};
 const server = http.createServer((req, res)=>{
     if(req.method === 'GET'){
         if(req.url==='/'){
@@ -30,6 +30,7 @@ const server = http.createServer((req, res)=>{
                 const { name } = JSON.parse(body);
                 const id = +new Date();
                 users[id] = name;
+                console.log(users);
                 res.writeHead(201);
                 res.end('사용자 등록 성공');
             })
@@ -55,10 +56,11 @@ const server = http.createServer((req, res)=>{
         }else if(req.url.startsWith('/users/')){
             const id = req.url.split('/')[2];
             let body = '';
+            console.log('delete method');
             req.on('data', (chunk)=>{
                 body += chunk;
             });
-            return req.on('end',()=>{
+            req.on('end',()=>{
                 console.log('delete', body);
                 delete users[id];
                 return res.end(JSON.stringify(users));

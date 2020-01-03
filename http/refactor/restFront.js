@@ -66,25 +66,25 @@ function getUser() { // 로딩 시 사용자 가져오는 함수
     xhr.open('GET', '/users');
     xhr.send();
   }
-  window.onload = getUser; // 로딩 시 getUser 호출
-  // 폼 제출
-  document.getElementById('form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var name = e.target.username.value;
-    if (!name) {
-      return alert('이름을 입력하세요');
+window.onload = getUser; // 로딩 시 getUser 호출
+// 폼 제출
+document.getElementById('form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var name = e.target.username.value;
+  if (!name) {
+    return alert('이름을 입력하세요');
+  }
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function () {
+    if (xhr.status === 201) {
+      console.log(xhr.responseText);
+      getUser();
+    } else {
+      console.error(xhr.responseText);
     }
-    var xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-      if (xhr.status === 201) {
-        console.log(xhr.responseText);
-        getUser();
-      } else {
-        console.error(xhr.responseText);
-      }
-    };
-    xhr.open('POST', '/users');
-    xhr.setRequestHeader('Content-Type', 'application/json ; charset=UTF-8');
-    xhr.send(JSON.stringify({ name: name }));
-    e.target.username.value = '';
-  });
+  };
+  xhr.open('POST', '/users');
+  xhr.setRequestHeader('Content-Type', 'application/json ; charset=UTF-8');
+  xhr.send(JSON.stringify({ name: name }));
+  e.target.username.value = '';
+});
