@@ -27,6 +27,7 @@ const server = http.createServer((req, res)=>{
             });
             req.on('end', ()=>{
                 console.log( 'POST 본문(body)', body);
+            
                 const { name } = JSON.parse(body);
                 const id = +new Date();
                 users[id] = name;
