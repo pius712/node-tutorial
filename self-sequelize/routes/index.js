@@ -5,12 +5,10 @@ var { User } = require('../models');
 router.get('/', function(req, res, next) {
   User.findAll()
     .then(users => {
-      // console.log('////');
-      res.render('sequelize', { title: '시퀄라이저 연습', users: users });
+      res.render('sequelize', { title: 'sequelize', users: users });
     })
     .catch(err => {
       console.error(err);
-      next(err);
     });
 });
 

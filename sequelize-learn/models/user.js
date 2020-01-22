@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(20),
         allowNull: false,
         unique: true,
+        // primaryKey: true,
       },
       age: {
         type: DataTypes.INTEGER.UNSIGNED,

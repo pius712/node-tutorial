@@ -3,31 +3,28 @@ var router = express.Router();
 var { User } = require('../models');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  // res.send('respond with a resource');
   User.findAll()
-    .then(users => {
-      res.json(users);
-      // json으로 배열도 보낼 수 있다... json = { object, array, string ...}
+    .then(result => {
+      console.log('result');
+      console.log(result);
+      res.json(result);
     })
     .catch(err => {
       console.error(err);
-      next(err);
     });
 });
-
 router.post('/', (req, res, next) => {
+  console.log(req.body);
   User.create({
     name: req.body.name,
     age: req.body.age,
     married: req.body.married,
   })
     .then(result => {
-      console.log(result);
-      res.status(201).json(result);
+      res.json(result);
     })
     .catch(err => {
       console.error(err);
-      next(err);
     });
 });
 module.exports = router;
